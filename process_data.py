@@ -10,7 +10,7 @@ spark = SparkSession.builder.master("local[*]") \
                     .appName('Topic Modelling') \
                     .getOrCreate()
 
-path = '/home/giangvdq/workspaces/pythie/data/docword.enron.txt.gz'
+path = '/home/giangvdq/data/docword.enron.txt.gz'
 df = spark.read.text(path)
 
 metadata = df.head(3)
