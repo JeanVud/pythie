@@ -1,6 +1,7 @@
 from pymongo import MongoClient
 
 client = MongoClient('172.27.11.234:27017', username='developer', password=']ag+VB5E_samnsb~', authSource='fteluv')
+from pymongo import MongoClient
 
 print("Reading from Mongo db")
 
@@ -13,6 +14,7 @@ data['_id'] = [str(x) for x in data['_id']]
 from pymongo import MongoClient
 
 client = MongoClient('172.27.11.234:27017', username='developer', password=']ag+VB5E_samnsb~', authSource='fteluv')
+from pymongo import MongoClient
 
 db = client.fteluv
 collection = db['videos_ver2']
@@ -37,7 +39,12 @@ def strip_text(string):
 
 videos_info['actors'] = videos_info.actors.apply(strip_text)
 
-from thesis.configuration import search_config as sc
+from bson.objectid import ObjectId
+
+from configuration import search_config as sc
+
+import math
+import numpy as np
 
 
 def return_list_items_ES(actor_name, sc, data):
@@ -108,3 +115,54 @@ for index, row in data.iterrows():
 data['_id'] = [str(x) for x in data['_id']]
 
 data.to_json(sc.ACTORS_OUTPUT + 'search_actors.json', orient="records", lines=True)
+
+
+
+
+
+
+
+
+
+
+### Input
+CURRENT_FOLDER = "/projects/fplay/sources/fplay-search/personalized_search"
+TEST_CASE_PATH = CURRENT_FOLDER + "/test_case.txt"
+POTENTAIL_SEX = CURRENT_FOLDER + "/external_data/potential_sex.csv"
+ACTOR_NAME = CURRENT_FOLDER + "/external_data/actor_name.json"
+NORMALIZE_CHANNELS = CURRENT_FOLDER + "/external_data/channels.csv"
+
+
+### Host
+ES_HOST = "http://42.112.4.230:9200/"
+
+
+### Output
+OUTPUT_PATH = "/bigdata/fplay/search/data/output"
+LOGS_PATH = "//bigdata/fplay/search/data/logs"
+ACTORS_OUTPUT = "/bigdata/fplay/search/data/data_meta"
+CHANNEL_OUTPUT = "/bigdata/fplay/search/data/data_meta"
+FILE_OUTPUT = "output"
+data_link = "/bigdata/fplay/search/data/data_meta"
+data_keyword = "/bigdata/fplay/search/data/data_keyword"
+PERSONAL_KEYWORD = "/bigdata/fplay/search/personal/"
+
+
+
+#### Index
+
+###### Production
+INDEX_NAME  = "official_version_1"
+INDEX_NAME_KEYWORD  = "keyword_dev_version_4"
+INDEX_ACTOR  = "actor"
+INDEX_CHANNELS  = "channels_version_1"
+RANKING_KEYWORD  = "ranking"
+
+
+
+###### Test
+#INDEX_NAME  = "meta_data_test"
+#INDEX_NAME_KEYWORD  = "keyword_test"
+#INDEX_CHANNELS  = "channels_test"
+#INDEX_ACTOR  = "actor_test"
+#RANKING_KEYWORD = "ranking"
